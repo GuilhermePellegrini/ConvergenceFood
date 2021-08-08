@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuUsersTable extends Migration
+class CreateCidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,14 @@ class CreateMenuUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_users', function (Blueprint $table) {
+        Schema::create('cidades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_admin_id');
-            $table->foreignId('menu_id');
+            $table->string('name', 100);
+            $table->foreignId('estado_id');
+            $table->string('ibge', 7);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('users_admin_id')->references('id')->on('users_admin');
-            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('estado_id')->references('id')->on('estados');
         });
     }
 
@@ -33,7 +33,7 @@ class CreateMenuUsersTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('menu_users');
+        Schema::dropIfExists('cidades');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

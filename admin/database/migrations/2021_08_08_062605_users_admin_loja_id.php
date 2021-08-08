@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuUsersTable extends Migration
+class UsersAdminLojaId extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,11 @@ class CreateMenuUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_users', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('users_admin_id');
-            $table->foreignId('menu_id');
-            $table->timestamps();
-            $table->softDeletes();
-            $table->foreign('users_admin_id')->references('id')->on('users_admin');
-            $table->foreign('menu_id')->references('id')->on('menus');
+        Schema::table('users_admin', function (Blueprint $table) {
+            $table->foreignId('loja_id');
+            $table->foreignId('endereco_id')->nullable();
+            $table->foreign('loja_id')->references('id')->on('lojas');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 
@@ -33,7 +30,8 @@ class CreateMenuUsersTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('menu_users');
+        Schema::dropColumns('loja_id');
+        Schema::dropColumns('endereco_id');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

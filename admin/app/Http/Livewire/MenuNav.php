@@ -11,6 +11,7 @@ class MenuNav extends Component
     {
         $user = Auth::user();
         $menus = $user->menus()->get();
-        return view('livewire.menu-nav', compact(['menus']));
+        $loja = $user->loja()->first();
+        return view('livewire.menu-nav', compact(['menus', 'loja']));
     }
 }

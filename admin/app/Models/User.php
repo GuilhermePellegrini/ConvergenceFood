@@ -29,6 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'loja_id',
+        'endereco_id',
     ];
 
     /**
@@ -65,4 +67,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Menu::class, 'menu_users', 'users_admin_id');
     }
+
+    public function endereco()
+    {
+        return $this->belongsTo(Endereco::class);
+    }
+
+    public function loja()
+    {
+        return $this->belongsTo(Loja::class);
+    }
+
 }
