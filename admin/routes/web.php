@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('site.home');
+})->name('home');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
 
-    Route::get('/pedidos', function () { return 'pedidos'; })->name('pedidos');
+    Route::get('/pedidos', function () { return view('pedidos.show'); })->name('pedidos');
     Route::get('/dashboard', function () { return view('dashboard'); })->name('dashboard');
+    Route::get('/minhaconta', function () { return view('dashboard'); })->name('minhaconta');
     
 });
