@@ -19,13 +19,14 @@ class CreatePedidosTable extends Migration
             $table->foreignId('users_id');
             $table->foreignId('endereco_id');
             $table->string('note', 100);
-            $table->string('cpf', 11)->nullable();
+            $table->string('cpf', 11)->nullable()->default(null);
             $table->float('price', 10,2);
-            $table->float('discount', 10,2);
+            $table->float('discount', 10,2)->nullable()->default(null);
             $table->foreignId('cupom_id')->nullable()->default(null);
-            $table->boolean('accept');
-            $table->string('reason_refusal', 255);
+            $table->boolean('accept')->nullable()->default(null);
+            $table->string('reason_refusal', 255)->nullable()->default(null);
             $table->boolean('delivery');
+            $table->foreignId('status_pedido_id')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
 
