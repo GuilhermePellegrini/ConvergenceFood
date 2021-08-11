@@ -23,6 +23,9 @@
             <a class="px-3 p-2 text-1xl align-middle font-semibold transition-all duration-700 cursor-pointer text-center rounded hover:bg-gray-300 hover:bg-opacity-60 mr-3" href="{{route('home')}}" alt="planos">
                 Planos
             </a>
+            <a class="px-3 p-2 text-1xl align-middle font-semibold transition-all duration-700 cursor-pointer text-center rounded hover:bg-gray-300 hover:bg-opacity-60 mr-3" href="{{route('register')}}" alt="planos">
+                Registre-se
+            </a>
             <a class="px-3 p-2 text-1xl align-middle font-semibold transition-all duration-700 cursor-pointer text-center rounded hover:bg-gray-300 hover:bg-opacity-60 mr-3 ml-auto" href="{{route('login')}}" alt="login">
                 Login
             </a>
@@ -34,6 +37,9 @@
         </a>
         <a class="px-3 p-2 text-1xl align-middle font-semibold transition-all duration-700 cursor-pointer text-center rounded hover:bg-gray-300 hover:bg-opacity-60 mr-3" href="{{route('home')}}" alt="planos">
             Planos
+        </a>
+        <a class="px-3 p-2 text-1xl align-middle font-semibold transition-all duration-700 cursor-pointer text-center rounded hover:bg-gray-300 hover:bg-opacity-60 mr-3" href="{{route('register')}}" alt="planos">
+            Registre-se
         </a>
         <a class="px-3 p-2 text-1xl align-middle font-semibold transition-all duration-700 cursor-pointer text-center rounded hover:bg-gray-300 hover:bg-opacity-60 mr-3" href="{{route('login')}}" alt="login">
             Login

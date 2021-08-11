@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('site.home');
 })->name('home');
 
+Route::get('/register', function () {
+    return view('site.register');
+})->name('register');
+
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function(){
 
     Route::get('/pedidos', function () { return view('pedidos.show'); })->name('pedidos');
