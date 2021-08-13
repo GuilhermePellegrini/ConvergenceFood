@@ -40,6 +40,7 @@ class UpdateUsersTable extends Migration
             $table->dropColumn('loja_id');
             $table->dropColumn('deleted_at');
             $table->dropColumn('admin');
+            $table->dropColumn('cpf');
         });
     }
 }
