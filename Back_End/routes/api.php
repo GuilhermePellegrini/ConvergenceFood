@@ -35,5 +35,9 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
         return $request->user();
     });
 
-    Route::post('/auth/logout', [ApiAuthController::class, 'logout']);
+    Route::group(['prefix' => '/auth'], function(){
+        Route::post('/logout', [ApiAuthController::class, 'logout']);
+        Route::post('/changePassword', [ApiAuthController::class, 'changePassword']);
+    });
+    
 });

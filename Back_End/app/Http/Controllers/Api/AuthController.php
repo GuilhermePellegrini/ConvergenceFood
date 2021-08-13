@@ -127,6 +127,31 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required|string',
+            'password' => 'required|string|confirmed'
+        ]);
+
+        $user = auth()->user();
+
+        //Verificando senha antiga
+        if(!$user || !Hash::check($request->old_password, $user->password)){
+            return response([
+                'message' => 'old password is incorrect'
+            ], 401);
+        }
+
+        //Alterando senha
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        auth()->user()->tokens()->delete();
+        return response([
+            'message' => 'password changed successfully'
+        ], 200);
+    }
+
     public function login(Request $request)
     {
         $request->validate([
@@ -160,4 +185,5 @@ class AuthController extends Controller
             'message' => 'Logged out'
         ];
     }
+
 }
