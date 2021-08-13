@@ -15,6 +15,7 @@ class UpdateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table)
         {
+            $table->string('cpf', 14)->after('name')->nullable()->default(null);
             $table->foreignId('endereco_id')->after('password')->nullable()->default(null);
             $table->foreignId('loja_id')->after('endereco_id')->nullable()->default(null);
             $table->boolean('admin')->default(false)->before('loja_id')->after('loja_id');

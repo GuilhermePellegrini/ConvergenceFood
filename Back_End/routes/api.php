@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\AuthController;
+use App\Models\Cidade;
+use App\Models\Estado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,11 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::groupe(['prefix' => '/auth', function(){
+Route::group(['prefix' => '/auth'], function(){
     Route::post('/register', [ApiAuthController::class, 'register']);
     Route::post('/register/admin', [ApiAuthController::class, 'registerAdmin']);
     Route::post('/login', [ApiAuthController::class, 'login']);
-}]);
+});
+
+Route::group(['prefix' => 'cep'], function(){
+    Route::get('/cidades', function(){
+        return response(Cidade::all());
+    });
+    Route::get('/estados', function(){
+        return response(Estado::all());
+    });
+});
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/user', function (Request $request) {

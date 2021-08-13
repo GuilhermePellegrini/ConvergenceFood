@@ -14,9 +14,10 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed',
+            'cpf' => 'required|email|unique:cpf',
             'admin' => 'boolean',
             'address_name' => 'required|string|max:255',
             'cep' => 'required|string|size:8',
@@ -59,8 +60,9 @@ class AuthController extends Controller
     public function registerAdmin(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'cpf' => 'required|email|unique:cpf',
             'password' => 'required|string|confirmed',
             'admin' => 'required|boolean',
             'address_name' => 'required|string|max:255',
@@ -77,7 +79,7 @@ class AuthController extends Controller
             'web_site' => 'string|max:255',
             'phone' => 'required|string|max:11',
             'cel_phone' => 'size:11',
-            'email' => 'required|email|max:255',
+            'email_loja' => 'required|email|max:255',
             'representante_legal' => 'required|string|max:255',
             'representante_legal_email' => 'required|email|max:255',
         ]);
