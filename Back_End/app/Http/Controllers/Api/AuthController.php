@@ -180,8 +180,8 @@ class AuthController extends Controller
 
         return response($response, 200);
     }
-
-    public function logout(Request $request)
+    
+    public function logout()
     {
         auth()->user()->tokens()->delete();
 
@@ -200,16 +200,12 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-        if($status == Password::RESET_LINK_SENT) {
-            
-        }
-
         return $status === Password::RESET_LINK_SENT
         ? response([
             'message' => __($status)
         ], 200)
         : response([
-            'email' => __($status)
+            'message' => __($status)
         ], 401);
 
     }
@@ -230,7 +226,7 @@ class AuthController extends Controller
                 ])->setRememberToken(Str::random(60));
     
                 $user->save();
-    
+                
                 event(new PasswordReset($user));
             }
         );

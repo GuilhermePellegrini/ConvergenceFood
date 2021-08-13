@@ -28,6 +28,7 @@ Route::group(['prefix' => '/auth'], function(){
 });
 
 Route::group(['prefix' => 'cep'], function(){
+    Route::post('/', [CepController::class, 'cep']);
     Route::get('/cidade/{estado_id}', [CepController::class, 'cidade']);
     Route::get('/estados', [CepController::class, 'estados']);
 });
@@ -40,4 +41,5 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
 
     Route::post('/auth/logout', [ApiAuthController::class, 'logout']);
     Route::post('/auth/changePassword', [ApiAuthController::class, 'changePassword']);
+    
 });
