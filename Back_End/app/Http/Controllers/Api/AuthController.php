@@ -15,9 +15,9 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|unique:users,email',
             'password' => 'required|string|confirmed',
-            'cpf' => 'required|email|unique:cpf',
+            'cpf' => 'required|unique:users,cpf',
             'admin' => 'boolean',
             'address_name' => 'required|string|max:255',
             'cep' => 'required|string|size:8',
@@ -62,7 +62,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'cpf' => 'required|email|unique:cpf',
+            'cpf' => 'required|unique:users,cpf',
             'password' => 'required|string|confirmed',
             'admin' => 'required|boolean',
             'address_name' => 'required|string|max:255',

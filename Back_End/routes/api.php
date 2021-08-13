@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\Api\CepController;
 use App\Http\Controllers\AuthController;
 use App\Models\Cidade;
 use App\Models\Estado;
@@ -25,12 +26,8 @@ Route::group(['prefix' => '/auth'], function(){
 });
 
 Route::group(['prefix' => 'cep'], function(){
-    Route::get('/cidades', function(){
-        return response(Cidade::all());
-    });
-    Route::get('/estados', function(){
-        return response(Estado::all());
-    });
+    Route::get('/cidade/{estado_id}', [CepController::class, 'cidade']);
+    Route::get('/estados', [CepController::class, 'estados']);
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
