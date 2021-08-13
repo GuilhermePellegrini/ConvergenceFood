@@ -23,6 +23,8 @@ Route::group(['prefix' => '/auth'], function(){
     Route::post('/register', [ApiAuthController::class, 'register']);
     Route::post('/register/admin', [ApiAuthController::class, 'registerAdmin']);
     Route::post('/login', [ApiAuthController::class, 'login']);
+    Route::post('/forgotPassword', [ApiAuthController::class, 'forgotPassword']);
+    Route::post('/resetPassword', [ApiAuthController::class, 'resetPassword']);
 });
 
 Route::group(['prefix' => 'cep'], function(){

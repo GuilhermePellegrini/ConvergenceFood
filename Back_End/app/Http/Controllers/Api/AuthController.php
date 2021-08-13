@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Endereco;
 use App\Models\Loja;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -135,7 +139,6 @@ class AuthController extends Controller
         ]);
 
         $user = auth()->user();
-        dd($user);
 
         //Verificando senha antiga
         if(!$user || !Hash::check($request->old_password, $user->password)){
@@ -145,7 +148,7 @@ class AuthController extends Controller
         }
 
         //Alterando senha
-        $user->password = Hash::make($request->new_password);
+        $user->password = Hash::make($request->password);
         $user->save();
         auth()->user()->tokens()->delete();
         return response([
@@ -182,9 +185,64 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
 
-        return [
+        return response([
             'message' => 'Logged out'
-        ];
+        ], 200);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        if($status == Password::RESET_LINK_SENT) {
+            
+        }
+
+        return $status === Password::RESET_LINK_SENT
+        ? response([
+            'message' => __($status)
+        ], 200)
+        : response([
+            'email' => __($status)
+        ], 401);
+
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+    
+                $user->save();
+    
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+        ? response([
+            'message' => __($status)
+        ], 200)
+        : response([
+            'email' => __($status)
+        ], 401);
+
     }
 
 }
