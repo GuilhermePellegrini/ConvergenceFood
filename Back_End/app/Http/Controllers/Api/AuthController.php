@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Endereco;
+use App\Models\Loja;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -92,10 +93,26 @@ class AuthController extends Controller
             'estado_id' => $request->estado_id,
         ]);
 
+        $loja = Loja::create([
+            'corporate_name' => $request->corporate_name,
+            'trading_name' => $request->trading_name,
+            'cnpj' => $request->cnpj,
+            'web_site' => $request->web_site,
+            'phone' => $request->phone,
+            'cel_phone' => $request->cel_phone,
+            'email' => $request->email,
+            'representante_legal' => $request->representante_legal,
+            'representante_legal_email' => $request->representante_legal_email,
+            'endereco_id' => $endereco->id,
+        ]);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'loja_id' => $loja->id,
+            'endereco_id' => $endereco->id,
+            'admin' => $request->admin,
         ]);
 
         $token = $user->createToken(env('APP_API'))->plainTextToken;

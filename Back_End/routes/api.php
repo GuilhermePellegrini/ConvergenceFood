@@ -16,12 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/auth/register', [ApiAuthController::class, 'register']);
-Route::post('/auth/login', [ApiAuthController::class, 'login']);
+Route::groupe(['prefix' => '/auth', function(){
+    Route::post('/register', [ApiAuthController::class, 'register']);
+    Route::post('/register/admin', [ApiAuthController::class, 'registerAdmin']);
+    Route::post('/login', [ApiAuthController::class, 'login']);
+}]);
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
     Route::post('/auth/logout', [ApiAuthController::class, 'logout']);
 });
