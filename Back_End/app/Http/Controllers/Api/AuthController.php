@@ -135,6 +135,7 @@ class AuthController extends Controller
         ]);
 
         $user = auth()->user();
+        dd($user);
 
         //Verificando senha antiga
         if(!$user || !Hash::check($request->old_password, $user->password)){

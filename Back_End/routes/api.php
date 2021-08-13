@@ -31,13 +31,11 @@ Route::group(['prefix' => 'cep'], function(){
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function (){
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    Route::group(['prefix' => '/auth'], function(){
-        Route::post('/logout', [ApiAuthController::class, 'logout']);
-        Route::post('/changePassword', [ApiAuthController::class, 'changePassword']);
-    });
-    
+    Route::post('/auth/logout', [ApiAuthController::class, 'logout']);
+    Route::post('/auth/changePassword', [ApiAuthController::class, 'changePassword']);
 });
