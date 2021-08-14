@@ -28,4 +28,9 @@ class Loja extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function produtos()
+    {
+        return $this->hasMany(Produto::class);
+    }
 }

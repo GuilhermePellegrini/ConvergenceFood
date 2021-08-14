@@ -121,7 +121,7 @@ class AuthController extends Controller
             'admin' => $request->admin,
         ]);
 
-        $token = $user->createToken(env('APP_API'))->plainTextToken;
+        $token = $user->createToken(env('APP_API'), ['admin'])->plainTextToken;
 
         $response = [
             'user' => $user,
@@ -129,6 +129,50 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
+    }
+
+    public function updateUser(Request $request)
+    {
+        
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
+        //Check email and password
+        $user = User::where('email', $request->email)->first();
+        if(!$user || !Hash::check($request->password, $user->password)){
+            return response([
+                'message' => 'Bad credentials'
+            ], 401);
+        }
+
+        $user->tokens()->delete();
+
+        if($user->admin == true){
+            $token = $user->createToken(env('APP_API'), ['admin'])->plainTextToken;
+        }else{
+            $token = $user->createToken(env('APP_API'), [''])->plainTextToken;
+        }
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 200);
+    }
+    
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return response([
+            'message' => 'Logged out'
+        ], 200);
     }
 
     public function changePassword(Request $request)
@@ -153,40 +197,6 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
         return response([
             'message' => 'password changed successfully'
-        ], 200);
-    }
-
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string'
-        ]);
-
-        //Check email and password
-        $user = User::where('email', $request->email)->first();
-        if(!$user || !Hash::check($request->password, $user->password)){
-            return response([
-                'message' => 'Bad credentials'
-            ], 401);
-        }
-
-        $token = $user->createToken(env('APP_API'))->plainTextToken;
-
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return response($response, 200);
-    }
-    
-    public function logout()
-    {
-        auth()->user()->tokens()->delete();
-
-        return response([
-            'message' => 'Logged out'
         ], 200);
     }
 
