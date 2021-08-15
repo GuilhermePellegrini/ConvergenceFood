@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -22,6 +23,7 @@ class AuthController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|string|confirmed',
             'cpf' => 'required|unique:users,cpf',
+            'genero' => ['required', Rule::in(['m','f', 'o', 'n'])],
             'admin' => 'boolean',
             'address_name' => 'required|string|max:255',
             'cep' => 'required|string|size:8',
@@ -47,6 +49,8 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'cpf' => $request->cpf,
+            'genero' => $request->genero,
             'password' => Hash::make($request->password),
             'endereco_id' => $endereco->id
         ]);
@@ -67,6 +71,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'cpf' => 'required|unique:users,cpf',
+            'genero' => ['required', Rule::in(['m','f', 'o', 'n'])],
             'password' => 'required|string|confirmed',
             'admin' => 'required|boolean',
             'address_name' => 'required|string|max:255',
@@ -115,6 +120,8 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'cpf' => $request->cpf,
+            'genero' => $request->genero,
             'password' => Hash::make($request->password),
             'loja_id' => $loja->id,
             'endereco_id' => $endereco->id,

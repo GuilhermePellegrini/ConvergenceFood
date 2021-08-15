@@ -26,6 +26,8 @@ class User extends Authenticatable
         'loja_id',
         'endereco_id',
         'admin',
+        'genero',
+        'cpf',
     ];
 
     /**
