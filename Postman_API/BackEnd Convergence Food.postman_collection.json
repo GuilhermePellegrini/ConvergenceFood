@@ -306,7 +306,7 @@
 			"response": []
 		},
 		{
-			"name": "Change Password",
+			"name": "ChangePassword",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -319,7 +319,13 @@
 					]
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"old_password\": \"123456789\",\r\n    \"password\":\"123123123\",\r\n    \"password_confirmation\":\"123123123\"\r\n}",
@@ -362,7 +368,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"pellegrini458@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+					"raw": "{\r\n    \"email\": \"pellegrini458@gmail.com\",\r\n    \"password\": \"123123123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -386,7 +392,7 @@
 			"response": []
 		},
 		{
-			"name": "Forgot Password",
+			"name": "ForgotPassword",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -416,13 +422,13 @@
 			"response": []
 		},
 		{
-			"name": "Reset Password",
+			"name": "ResetPassword",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"token\": \"11e44160e26c68e64816263a97992f9f5b6a0518862c417fd1f95b9360817121\",\r\n    \"email\": \"pellegrini458@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"password_confirmation\": \"123456789\"\r\n}",
+					"raw": "{\r\n    \"token\": \"f5afb69847ace9ea8edc9c882c575e54af5c360194958400bbfc7d9d74082925\",\r\n    \"email\": \"pellegrini458@gmail.com\",\r\n    \"password\": \"123123123\",\r\n    \"password_confirmation\": \"123123123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -440,6 +446,305 @@
 						"api",
 						"auth",
 						"resetPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatProduto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|PVJV06PQZpDePgyo64ICSaFhpwiwPRXYDp7BUXPV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Produto Teste",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "10.00",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "teste produto é muito bom",
+							"type": "text"
+						},
+						{
+							"key": "categoria_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": "/C:/Users/Guilherme Pellegrini/Pictures/album20200429234244.jpg"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": "/C:/Users/Guilherme Pellegrini/Pictures/BlueStacks/com.stove.epic7.google_Screenshot_2021.02.26_17.30.07.png"
+						},
+						{
+							"key": "loja_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": "/C:/Users/Guilherme Pellegrini/Pictures/AC4_Salao.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatProduto Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|PVJV06PQZpDePgyo64ICSaFhpwiwPRXYDp7BUXPV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produto/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produto",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProdutosLojaId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|PVJV06PQZpDePgyo64ICSaFhpwiwPRXYDp7BUXPV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produtos/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produtos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProduto",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|PVJV06PQZpDePgyo64ICSaFhpwiwPRXYDp7BUXPV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produto",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllProdutos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|PVJV06PQZpDePgyo64ICSaFhpwiwPRXYDp7BUXPV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produtos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produtos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProduto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "15|PVJV06PQZpDePgyo64ICSaFhpwiwPRXYDp7BUXPV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Produto 01\",\r\n    \"price\": \"9.99\",\r\n    \"description\": \"produto 1 é muiito bom\",\r\n    \"loja_id\": \"1\",\r\n    \"categoria_id\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/produto/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"produto",
+						"1"
 					]
 				}
 			},
